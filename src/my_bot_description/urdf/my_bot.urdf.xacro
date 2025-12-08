@@ -13,7 +13,6 @@
   <xacro:property name="robot_mass" value="8.0"/> <!-- kg -->
 
   <!-- ========== Macros for inertial helpers ========== -->
-  <!-- Simple box inertia approximation -->
   <xacro:macro name="inertial_box" params="mass x y z">
     <inertial>
       <mass value="${mass}"/>
@@ -51,8 +50,7 @@
                         z="${base_height}"/>
   </link>
 
-  <!-- ========== Ball-handling "funnel" at the front ========== -->
-  <!-- Left guide -->
+  <!-- ========== Ball-handling "funnel" ========== -->
   <link name="funnel_left">
     <visual>
       <origin xyz="${base_length/2.0} ${base_width/2.0} ${base_height}" rpy="0 0 0.6"/>
@@ -78,7 +76,6 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- Right guide -->
   <link name="funnel_right">
     <visual>
       <origin xyz="${base_length/2.0} ${-base_width/2.0} ${base_height}" rpy="0 0 -0.6"/>
@@ -128,8 +125,7 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- ========== Wheels (left & right) ========== -->
-  <!-- Left wheel -->
+  <!-- ========== Wheels ========== -->
   <link name="left_wheel_link">
     <visual>
       <origin xyz="0 ${wheel_separation/2.0} ${wheel_radius}" rpy="0 1.5708 0"/>
@@ -159,7 +155,6 @@
     <axis xyz="0 1 0"/>
   </joint>
 
-  <!-- Right wheel -->
   <link name="right_wheel_link">
     <visual>
       <origin xyz="0 ${-wheel_separation/2.0} ${wheel_radius}" rpy="0 1.5708 0"/>
@@ -187,7 +182,7 @@
     <axis xyz="0 1 0"/>
   </joint>
 
-  <!-- ========== Caster wheel (simple) ========== -->
+  <!-- Caster -->
   <link name="caster_wheel">
     <visual>
       <origin xyz="-${base_length/2.0 - 0.05} 0 ${wheel_radius/2.0}" rpy="0 0 0"/>
@@ -213,22 +208,22 @@
     <child link="caster_wheel"/>
     <origin xyz="-${base_length/2.0 - 0.05} 0 0" rpy="0 0 0"/>
   </joint>
-     <!-- ========== Simple lidar link (for later SLAM) ========== -->
+
+  <!-- Simple lidar puck -->
   <link name="lidar_link">
     <visual>
-      <!-- Make it big and clearly above the base -->
-      <origin xyz="0 0 ${base_height + 0.30}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${base_height + 0.05}" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.15" length="0.30"/>
+        <cylinder radius="0.05" length="0.02"/>
       </geometry>
       <material name="lidar_body">
         <color rgba="0.1 0.1 0.1 1.0"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 ${base_height + 0.30}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${base_height + 0.05}" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.15" length="0.30"/>
+        <cylinder radius="0.05" length="0.02"/>
       </geometry>
     </collision>
     <inertial>
@@ -244,5 +239,6 @@
     <child link="lidar_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
+
 </robot>
-  
+
