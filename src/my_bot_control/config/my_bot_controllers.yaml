@@ -1,0 +1,14 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    left_flap_controller:
+      type: position_controllers/JointPositionController
+      joint: left_flap_joint
+
+    right_flap_controller:
+      type: position_controllers/JointPositionController
+      joint: right_flap_joint
